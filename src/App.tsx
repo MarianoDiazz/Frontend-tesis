@@ -1,9 +1,10 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Login from './paginas/Login/Login';
-import Inicio from './paginas/Inicio/Inicio';
-import RutaProtegida from './componentes/RutaProtegida';
-import Layout from './componentes/Layout/Layout';
-import EnConstruccion from './componentes/EnConstruccion';
+import { Routes, Route, Navigate } from "react-router-dom";
+import Login from "./paginas/Login/Login";
+import Inicio from "./paginas/Inicio/Inicio";
+import RutaProtegida from "./componentes/RutaProtegida";
+import Layout from "./componentes/Layout/Layout";
+import EnConstruccion from "./componentes/EnConstruccion";
+import Pacientes from "./paginas/Pacientes/Pacientes";
 
 export default function App() {
   return (
@@ -14,22 +15,34 @@ export default function App() {
       <Route element={<RutaProtegida />}>
         <Route element={<Layout />}>
           <Route path="/inicio" element={<Inicio />} />
-          <Route path="/reportes" element={<EnConstruccion titulo="Reportes" />} />
+          <Route
+            path="/reportes"
+            element={<EnConstruccion titulo="Reportes" />}
+          />
 
-          <Route element={<RutaProtegida roles={['Recepcion', 'Medico']} />}>
-            <Route path="/pacientes" element={<EnConstruccion titulo="Pacientes" />} />
+          <Route element={<RutaProtegida roles={["Recepcion", "Medico"]} />}>
+            <Route path="/pacientes" element={<Pacientes />} />{" "}
           </Route>
 
-          <Route element={<RutaProtegida roles={['Recepcion']} />}>
-            <Route path="/turnos" element={<EnConstruccion titulo="Agenda" />} />
+          <Route element={<RutaProtegida roles={["Recepcion"]} />}>
+            <Route
+              path="/turnos"
+              element={<EnConstruccion titulo="Agenda" />}
+            />
           </Route>
 
-          <Route element={<RutaProtegida roles={['Medico']} />}>
-            <Route path="/atencion" element={<EnConstruccion titulo="Atención" />} />
+          <Route element={<RutaProtegida roles={["Medico"]} />}>
+            <Route
+              path="/atencion"
+              element={<EnConstruccion titulo="Atención" />}
+            />
           </Route>
 
-          <Route element={<RutaProtegida roles={['Admin']} />}>
-            <Route path="/usuarios" element={<EnConstruccion titulo="Usuarios" />} />
+          <Route element={<RutaProtegida roles={["Admin"]} />}>
+            <Route
+              path="/usuarios"
+              element={<EnConstruccion titulo="Usuarios" />}
+            />
           </Route>
         </Route>
       </Route>

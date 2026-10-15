@@ -1,19 +1,24 @@
 .layout { display: flex; min-height: 100vh; }
-.layout-menu { width: 230px; background: #0f2f2c; color: #e6f2f0; display: flex;
-  flex-direction: column; padding: 20px 14px; gap: 24px; }
-.layout-marca { font-size: 20px; font-weight: 600; padding: 0 8px; }
-.layout-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
-.layout-link { color: #c7dedb; text-decoration: none; padding: 10px 12px; border-radius: 8px; }
-.layout-link:hover { background: #18423e; }
-.layout-link.active { background: #0f766e; color: #fff; }
-.layout-usuario { display: flex; flex-direction: column; gap: 4px; padding: 0 8px; font-size: 14px; }
-.layout-usuario span { color: #9cc3be; }
-.layout-usuario button { margin-top: 8px; padding: 8px; border: 1px solid #3d6b66;
-  background: transparent; color: #e6f2f0; border-radius: 8px; cursor: pointer; }
-.layout-contenido { flex: 1; padding: 32px; }
+.layout-menu { width: 240px; flex-shrink: 0; background: var(--menu); color: #E3EFED;
+  display: flex; flex-direction: column; gap: 28px; padding: 24px 16px;
+  position: sticky; top: 0; height: 100vh; }
+.layout-marca { font-size: 20px; font-weight: 700; padding: 0 10px; }
+.layout-nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.layout-link { color: #B9D3CF; text-decoration: none; padding: 10px 12px; border-radius: var(--radio); }
+.layout-link:hover { background: rgba(255,255,255,.06); color: #fff; }
+.layout-link.active { background: var(--acento); color: #fff; font-weight: 500; }
+.layout-usuario { display: flex; flex-direction: column; gap: 2px; padding: 16px 10px 0;
+  border-top: 1px solid rgba(255,255,255,.1); font-size: 14px; }
+.layout-usuario span { color: #8FB3AD; }
+.layout-usuario button { margin-top: 12px; padding: 8px; border: 1px solid rgba(255,255,255,.18);
+  background: transparent; color: #E3EFED; border-radius: var(--radio); font: inherit; cursor: pointer; }
+.layout-usuario button:hover { background: rgba(255,255,255,.06); }
+.layout-contenido { flex: 1; min-width: 0; max-width: 1200px; padding: 40px 48px; }
 
-/* en celular el menú pasa arriba */
-@media (max-width: 700px) {
+/* en pantallas chicas el menú pasa arriba */
+@media (max-width: 800px) {
   .layout { flex-direction: column; }
-  .layout-menu { width: 100%; }
+  .layout-menu { width: 100%; height: auto; position: static; gap: 16px; }
+  .layout-nav { flex-direction: row; flex-wrap: wrap; }
+  .layout-contenido { padding: 24px 16px; }
 }
