@@ -11,3 +11,14 @@ export interface Paciente {
   nombre_obra_social: string;
   sigla_obra_social: string | null;
 }
+
+// lo que mando al crear o editar
+export interface PacienteDatos {
+  dni: string;
+  nombre: string;
+  apellido: string;
+  telefono: string | null;
+  email: string | null;
+  id_obra_social: number;
+  numero_afiliado: string | null;
+}

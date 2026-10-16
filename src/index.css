@@ -48,13 +48,40 @@ h2 { font-size: 20px; font-weight: 700; }
 .btn-secundario:hover:not(:disabled) { border-color: var(--tinta-suave); }
 .btn-peligro { background: var(--peligro); color: #fff; }
 
+/* botones chicos dentro de tablas */
+.btn-texto { background: none; border: none; font: inherit; font-weight: 500; color: var(--acento);
+  padding: 4px 8px; border-radius: 6px; cursor: pointer; }
+.btn-texto:hover { background: var(--acento-suave); }
+.btn-texto.peligro { color: var(--peligro); }
+.btn-texto.peligro:hover { background: var(--peligro-suave); }
+
 /* campos de formulario */
 .campo { display: flex; flex-direction: column; gap: 6px; }
 .campo label { font-size: 14px; font-weight: 500; }
-.campo input, .campo select { width: 100%; padding: 10px 12px; border: 1px solid var(--linea);
+.campo input, .campo select, .campo textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--linea);
   border-radius: var(--radio); font: inherit; background: var(--superficie); color: var(--tinta); }
-.campo input:focus, .campo select:focus { border-color: var(--acento); outline: none;
+.campo textarea { resize: vertical; }
+.campo input:focus, .campo select:focus, .campo textarea:focus { border-color: var(--acento); outline: none;
   box-shadow: 0 0 0 3px var(--acento-suave); }
+.campo input[aria-invalid="true"], .campo select[aria-invalid="true"] { border-color: var(--peligro); }
+.campo-error { color: var(--peligro); font-size: 14px; }
+
+/* formularios */
+.formulario { display: flex; flex-direction: column; gap: 16px; }
+.formulario-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.formulario-acciones { display: flex; justify-content: flex-end; gap: 8px; padding-top: 8px; }
+@media (max-width: 480px) { .formulario-fila { grid-template-columns: 1fr; } }
+
+/* opciones tipo botón (medio de pago) */
+.opciones { border: none; padding: 0; display: flex; gap: 8px; flex-wrap: wrap; }
+.opciones legend { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+.opcion { flex: 1; min-width: 110px; position: relative; }
+.opcion input { position: absolute; opacity: 0; }
+.opcion span { display: block; padding: 10px; text-align: center; border: 1px solid var(--linea);
+  border-radius: var(--radio); cursor: pointer; }
+.opcion input:checked + span { border-color: var(--acento); background: var(--acento-suave);
+  color: var(--acento-hover); font-weight: 500; }
+.opcion input:focus-visible + span { outline: 3px solid var(--acento); outline-offset: 2px; }
 
 /* tablas */
 .tabla-contenedor { background: var(--superficie); border: 1px solid var(--linea);
@@ -67,17 +94,31 @@ h2 { font-size: 20px; font-weight: 700; }
 .tabla tbody tr:last-child td { border-bottom: none; }
 .tabla tbody tr:hover { background: var(--superficie-alt); }
 .celda-secundaria { display: block; font-size: 14px; color: var(--tinta-suave); margin-top: 2px; }
+.celda-acciones { text-align: right; white-space: nowrap; }
 
-/* etiquetas (obra social, estados) */
+/* etiquetas (obra social) */
 .etiqueta { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 14px;
   font-weight: 500; background: var(--acento-suave); color: var(--acento-hover); }
 .etiqueta-neutra { background: #E9EDF0; color: var(--tinta-suave); }
+
+/* estados del turno: cada uno con su color */
+.estado { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 14px;
+  font-weight: 500; white-space: nowrap; }
+.estado-pendiente { background: #E9EDF0; color: #4A5866; }
+.estado-en-espera { background: #FCEFD2; color: #855400; }
+.estado-en-consulta { background: #DCE8F6; color: #1E4A7A; }
+.estado-atendido { background: var(--acento-suave); color: var(--acento-hover); }
+.estado-cancelado { background: var(--peligro-suave); color: var(--peligro); }
 
 /* mensajes */
 .mensaje-error { background: var(--peligro-suave); color: var(--peligro);
   padding: 12px 14px; border-radius: var(--radio); }
 .estado-vacio { background: var(--superficie); border: 1px dashed var(--linea); border-radius: 12px;
   padding: 48px 24px; text-align: center; color: var(--tinta-suave); }
+
+/* aviso que aparece abajo y se va solo */
+.aviso { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 70;
+  background: var(--tinta); color: #fff; padding: 12px 20px; border-radius: var(--radio); }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }

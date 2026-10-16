@@ -1,0 +1,16 @@
+.agenda-titulo::first-letter { text-transform: uppercase; }
+.agenda-hoy { margin-left: 12px; vertical-align: middle; }
+.agenda-controles { display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.agenda-dia { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.agenda-dia input { padding: 9px 12px; border: 1px solid var(--linea); border-radius: var(--radio);
+  font: inherit; color: var(--tinta); background: var(--superficie); }
+.agenda-flecha { width: 42px; padding: 8px 0; font-size: 20px; line-height: 1; }
+.agenda-medico { min-width: 200px; }
+.agenda-hora { font-size: 20px; font-weight: 700; white-space: nowrap; }
+.turno-paciente { font-weight: 700; }
+.cobro-ok { color: var(--acento-hover); font-weight: 500; }
+.cobro-pendiente { color: var(--tinta-suave); }
+.cobro-resumen { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px;
+  background: var(--superficie-alt); border: 1px solid var(--linea); border-radius: var(--radio); }
+.fila-cancelada td { color: var(--tinta-suave); }
+.fila-cancelada .turno-paciente { text-decoration: line-through; font-weight: 400; }

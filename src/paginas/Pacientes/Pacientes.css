@@ -1,2 +1,13 @@
-.pacientes-buscador { max-width: 420px; margin-bottom: 20px; }
-.paciente-nombre { font-weight: 700; }
+.pacientes-buscador {
+    max-width: 420px;
+    margin-bottom: 20px;
+}
+
+.paciente-nombre {
+    font-weight: 700;
+}
+
+.celda-acciones {
+    text-align: right;
+    white-space: nowrap;
+}

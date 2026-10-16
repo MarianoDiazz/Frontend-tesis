@@ -1,0 +1,9 @@
+.buscador-etiqueta { font-size: 14px; font-weight: 500; }
+.buscador-resultados { list-style: none; padding: 4px; margin: 4px 0 0; max-height: 240px; overflow-y: auto;
+  border: 1px solid var(--linea); border-radius: var(--radio); background: var(--superficie); }
+.buscador-resultados button { width: 100%; text-align: left; background: none; border: none; font: inherit;
+  color: var(--tinta); padding: 8px 10px; border-radius: 6px; cursor: pointer; }
+.buscador-resultados button:hover { background: var(--superficie-alt); }
+.buscador-vacio { padding: 8px 10px; font-size: 14px; color: var(--tinta-suave); }
+.buscador-elegido { display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  padding: 10px 12px; border: 1px solid var(--acento); background: var(--acento-suave); border-radius: var(--radio); }
