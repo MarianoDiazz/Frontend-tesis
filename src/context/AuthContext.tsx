@@ -2,23 +2,35 @@ import { createContext, useContext, useState } from 'react';
 import type { ReactNode } from 'react';
 import clienteApi from '../api/clienteApi';
 import type { Usuario } from '../tipos/usuario';
+import { tokenVencido } from '../utilidades/sesion';
+
+export type MotivoCierre = 'inactividad' | null;
 
 interface ContextoAuth {
   usuario: Usuario | null;
+  motivoCierre: MotivoCierre; // por qué se cerró la última sesión, para avisar en el login
   iniciarSesion: (email: string, password: string) => Promise<void>;
-  cerrarSesion: () => void;
+  cerrarSesion: (motivo?: MotivoCierre) => void;
 }
 
 const AuthContext = createContext<ContextoAuth | null>(null);
 
-// si recargo la página, recupero el usuario guardado
+// al abrir la app recupero la sesión, pero solo si el token sigue vigente
 function leerUsuarioGuardado(): Usuario | null {
+  const token = localStorage.getItem('token');
   const guardado = localStorage.getItem('usuario');
-  return guardado ? JSON.parse(guardado) : null;
+
+  if (!token || !guardado || tokenVencido(token)) {
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
+    return null;
+  }
+  return JSON.parse(guardado);
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [usuario, setUsuario] = useState<Usuario | null>(leerUsuarioGuardado);
+  const [motivoCierre, setMotivoCierre] = useState<MotivoCierre>(null);
 
   async function iniciarSesion(email: string, password: string) {
     const { data } = await clienteApi.post('/autenticacion/iniciar-sesion', { email, password });
@@ -26,16 +38,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('token', data.token);
     localStorage.setItem('usuario', JSON.stringify(data.usuario));
     setUsuario(data.usuario);
+    setMotivoCierre(null);
   }
 
-  function cerrarSesion() {
+  function cerrarSesion(motivo: MotivoCierre = null) {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
-    setUsuario(null);
+    setMotivoCierre(motivo);
+    setUsuario(null); // al quedar sin usuario, RutaProtegida lleva al login
   }
 
   return (
-    <AuthContext.Provider value={{ usuario, iniciarSesion, cerrarSesion }}>
+    <AuthContext.Provider value={{ usuario, motivoCierre, iniciarSesion, cerrarSesion }}>
       {children}
     </AuthContext.Provider>
   );

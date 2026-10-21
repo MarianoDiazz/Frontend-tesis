@@ -9,10 +9,11 @@ export async function listarPacientes(busqueda = ''): Promise<Paciente[]> {
   return data.datos;
 }
 
-export async function crearPaciente(datos: PacienteDatos): Promise<void> {
-  await clienteApi.post('/pacientes', datos);
+// devuelvo el mensaje del backend: puede ser alta nueva o reactivación
+export async function crearPaciente(datos: PacienteDatos): Promise<string> {
+  const { data } = await clienteApi.post('/pacientes', datos);
+  return data.mensaje;
 }
-
 export async function actualizarPaciente(id: number, datos: PacienteDatos): Promise<void> {
   await clienteApi.put(`/pacientes/${id}`, datos);
 }

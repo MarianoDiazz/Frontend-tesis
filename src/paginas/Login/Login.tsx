@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
 import './Login.css';
 
 export default function Login() {
-  const { iniciarSesion } = useAuth();
+  const { usuario, motivoCierre, iniciarSesion } = useAuth();
   const navegar = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -39,11 +39,18 @@ export default function Login() {
     }
   }
 
+  // si ya estoy logueado, no muestro el login
+  if (usuario) return <Navigate to="/inicio" replace />;
+
   return (
     <div className="login-fondo">
       <form className="login-tarjeta" onSubmit={manejarEnvio}>
         <h1>Consultorio</h1>
         <p className="login-subtitulo">Ingresá con tu cuenta</p>
+
+        {motivoCierre === 'inactividad' && !error && (
+          <p className="login-aviso">Tu sesión se cerró por inactividad. Volvé a ingresar.</p>
+        )}
 
         <label htmlFor="email">Email</label>
         <input id="email" type="email" value={email}
@@ -58,6 +65,8 @@ export default function Login() {
         <button type="submit" disabled={cargando}>
           {cargando ? 'Ingresando...' : 'Ingresar'}
         </button>
+
+        <Link to="/recuperar-clave" className="login-enlace">¿Olvidaste tu contraseña?</Link>
       </form>
     </div>
   );

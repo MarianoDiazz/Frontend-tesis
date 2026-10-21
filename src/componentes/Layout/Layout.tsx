@@ -1,11 +1,20 @@
+import { useCallback } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { menu } from '../../config/menu';
+import { MINUTOS_INACTIVIDAD, SEGUNDOS_AVISO } from '../../config/sesion';
+import { useInactividad } from '../../hooks/useInactividad';
+import AvisoInactividad from '../AvisoInactividad/AvisoInactividad';
 import './Layout.css';
 
 export default function Layout() {
   const { usuario, cerrarSesion } = useAuth();
   const navegar = useNavigate();
+
+  // si pasa el tiempo sin actividad, cierro la sesión indicando el motivo
+  const cerrarPorInactividad = useCallback(() => cerrarSesion('inactividad'), [cerrarSesion]);
+
+  const { restantes, seguir } = useInactividad(MINUTOS_INACTIVIDAD, SEGUNDOS_AVISO, cerrarPorInactividad);
 
   if (!usuario) return null;
 
@@ -41,6 +50,10 @@ export default function Layout() {
       <main className="layout-contenido">
         <Outlet />
       </main>
+
+      {restantes !== null && (
+        <AvisoInactividad segundos={restantes} onSeguir={seguir} onSalir={salir} />
+      )}
     </div>
   );
 }

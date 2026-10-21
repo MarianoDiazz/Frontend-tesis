@@ -73,8 +73,8 @@ export default function FormularioPaciente({ paciente, obrasSociales, onGuardado
         await actualizarPaciente(paciente.id_paciente, datos);
         onGuardado('Paciente actualizado.');
       } else {
-        await crearPaciente(datos);
-        onGuardado('Paciente registrado.');
+        const mensaje = await crearPaciente(datos);
+        onGuardado(mensaje);
       }
     } catch (err) {
       setErrorGeneral(mensajeDeError(err, 'No se pudo guardar el paciente.'));

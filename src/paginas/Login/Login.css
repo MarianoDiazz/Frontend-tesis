@@ -13,3 +13,12 @@
 .login-tarjeta button:disabled { opacity: .6; cursor: default; }
 .login-error { background: var(--peligro-suave); color: var(--peligro); padding: 10px 12px;
   border-radius: var(--radio); font-size: 14px; }
+
+/* recuperar contraseña */
+.login-enlace { align-self: center; margin-top: 14px; color: var(--acento); font-size: 14px;
+  font-weight: 500; text-decoration: none; }
+.login-enlace:hover { text-decoration: underline; }
+.login-exito { margin-top: 8px; background: var(--acento-suave); color: var(--acento-hover); padding: 12px 14px;
+  border-radius: var(--radio); }
+.login-aviso { background: #E9EDF0; color: #3F4D5A; padding: 10px 12px; border-radius: var(--radio);
+  font-size: 14px; margin: -8px 0 12px; }
